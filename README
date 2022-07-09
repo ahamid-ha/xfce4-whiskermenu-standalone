@@ -1,0 +1,20 @@
+About
+=====
+
+This is a hack for Whisker Menu to run as a standalone application. So it can be used
+with panels other than xfce panel.
+
+Whisker Menu is an application launcher for Xfce. It is an xfce4 panel plugin, so
+it can't work without xfce panel running.
+
+Whisker Menu website: https://docs.xfce.org/panel-plugins/xfce4-whiskermenu-plugin
+
+How to use?
+===========
+Just run `whiskermenu_standalone`. Currently it doesn't understand any arguments and
+will just open in the current mouse position. The opplication will terminate when the
+applications window is closed.
+
+Installation
+============
+You need to compile it using the steps in [INSTALL](./INSTALL)
