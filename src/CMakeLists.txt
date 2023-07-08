@@ -3,12 +3,14 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 
 find_package(PkgConfig REQUIRED)
+pkg_check_modules(gio REQUIRED IMPORTED_TARGET gio-2.0)
 pkg_check_modules(GTK3 REQUIRED IMPORTED_TARGET gtk+-3.0>=3.22)
 pkg_check_modules(exo REQUIRED IMPORTED_TARGET exo-2>=0.12)
 pkg_check_modules(garcon REQUIRED IMPORTED_TARGET garcon-1>=0.6.4)
 pkg_check_modules(libxfce4panel REQUIRED IMPORTED_TARGET libxfce4panel-2.0>=4.14)
 pkg_check_modules(libxfce4ui REQUIRED IMPORTED_TARGET libxfce4ui-2>=4.14)
 pkg_check_modules(libxfce4util REQUIRED IMPORTED_TARGET libxfce4util-1.0>=4.14)
+pkg_check_modules(libxfconf REQUIRED IMPORTED_TARGET libxfconf-0>=4.14)
 if(ENABLE_ACCOUNTSSERVICE)
 	pkg_check_modules(accountsservice IMPORTED_TARGET accountsservice>=0.6.45)
 endif()
@@ -52,7 +54,8 @@ target_link_libraries(whiskermenu_standalone PRIVATE
 	PkgConfig::garcon
 	PkgConfig::libxfce4panel
 	PkgConfig::libxfce4ui
-	PkgConfig::libxfce4util)
+	PkgConfig::libxfce4util
+	PkgConfig::libxfconf)
 
 target_compile_options(whiskermenu_standalone PRIVATE -Wall -Wextra)
 

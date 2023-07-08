@@ -15,7 +15,7 @@ using namespace WhiskerMenu;
 extern "C" void whiskermenu_open()
 {
 	xfce_textdomain(GETTEXT_PACKAGE, PACKAGE_LOCALE_DIR, "UTF-8");
-	Plugin *p = new Plugin((XfcePanelPlugin*)NULL);
+	new Plugin((XfcePanelPlugin*)NULL);
 }
 
 
@@ -26,9 +26,9 @@ Plugin::Plugin(XfcePanelPlugin* plugin) :
 	m_window(nullptr),
 	m_opacity(100),
 	m_file_icon(false),
-	m_menu_shown(false)
+	m_hide_time(0)
 {
-	wm_settings = new Settings;
+	wm_settings = new Settings(this);
 	wm_settings->load(xfce_resource_lookup(XFCE_RESOURCE_CONFIG, "xfce4/whiskermenu/defaults.rc"));
 	wm_settings->m_button_title_default = wm_settings->button_title;
 	wm_settings->load(xfce_resource_lookup(XFCE_RESOURCE_CONFIG, "whiskermenu-standalone.rc"));
@@ -46,6 +46,11 @@ Plugin::Plugin(XfcePanelPlugin* plugin) :
 	}
 
 	m_window = new Window(this);
+	connect(m_window->get_widget(), "hide",
+		[this](GtkWidget*)
+		{
+			menu_hidden();
+		});
 	m_window->show(Window::PositionAtCursor);
 }
 
@@ -76,51 +81,51 @@ std::string Plugin::get_button_title_default()
 
 //-----------------------------------------------------------------------------
 
-void Plugin::menu_hidden(bool lost_focus)
+void Plugin::menu_hidden()
 {
-	save();
+	// save();
 	gtk_main_quit();
 }
 
 //-----------------------------------------------------------------------------
 
-void Plugin::reload()
+void Plugin::reload_button()
 {
 }
 
 //-----------------------------------------------------------------------------
 
-void Plugin::set_button_style(ButtonStyle style)
+void Plugin::reload_menu()
 {
 }
 
 //-----------------------------------------------------------------------------
 
-void Plugin::set_button_title(const std::string& title)
+void Plugin::set_button_style([[maybe_unused]] ButtonStyle style)
 {
 }
 
 //-----------------------------------------------------------------------------
 
-void Plugin::set_button_icon_name(const std::string& icon)
+void Plugin::set_button_title([[maybe_unused]] const std::string& title)
 {
 }
 
 //-----------------------------------------------------------------------------
 
-void Plugin::set_configure_enabled(bool enabled)
+void Plugin::set_button_icon_name([[maybe_unused]] const std::string& icon)
 {
 }
 
 //-----------------------------------------------------------------------------
 
-void Plugin::set_loaded(bool loaded)
+void Plugin::set_configure_enabled([[maybe_unused]] bool enabled)
 {
 }
 
 //-----------------------------------------------------------------------------
 
-void Plugin::button_toggled(GtkToggleButton* button)
+void Plugin::set_loaded([[maybe_unused]] bool loaded)
 {
 }
 
@@ -132,32 +137,32 @@ void Plugin::configure()
 
 //-----------------------------------------------------------------------------
 
-void Plugin::icon_changed(const gchar* icon)
+void Plugin::icon_changed([[maybe_unused]] const gchar* icon)
 {
 }
 
 //-----------------------------------------------------------------------------
 
-void Plugin::mode_changed(XfcePanelPluginMode mode)
+void Plugin::mode_changed([[maybe_unused]] XfcePanelPluginMode mode)
 {
 }
 
 //-----------------------------------------------------------------------------
 
-gboolean Plugin::remote_event(const gchar* name, const GValue* value)
+gboolean Plugin::remote_event([[maybe_unused]] const gchar* name, [[maybe_unused]] const GValue* value)
 {
 	return true;
 }
 
 //-----------------------------------------------------------------------------
 
-void Plugin::save()
-{
-	if (wm_settings->get_modified())
-	{
-		wm_settings->save(xfce_resource_lookup(XFCE_RESOURCE_CONFIG, "whiskermenu-standalone.rc"));
-	}
-}
+// void Plugin::save()
+// {
+// 	if (wm_settings->get_modified())
+// 	{
+// 		wm_settings->save(xfce_resource_lookup(XFCE_RESOURCE_CONFIG, "whiskermenu-standalone.rc"));
+// 	}
+// }
 
 //-----------------------------------------------------------------------------
 
@@ -167,7 +172,7 @@ void Plugin::show_about()
 
 //-----------------------------------------------------------------------------
 
-gboolean Plugin::size_changed(gint size)
+gboolean Plugin::size_changed([[maybe_unused]] gint size)
 {
 	return true;
 }
@@ -180,6 +185,6 @@ void Plugin::update_size()
 
 //-----------------------------------------------------------------------------
 
-void Plugin::show_menu(bool at_cursor)
+void Plugin::show_menu([[maybe_unused]] bool at_cursor)
 {
 }
