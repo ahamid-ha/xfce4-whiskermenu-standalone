@@ -81,6 +81,13 @@ std::string Plugin::get_button_title_default()
 
 //-----------------------------------------------------------------------------
 
+void Plugin::get_menu_position(int* x, int* y) const
+{
+	xfce_panel_plugin_position_widget(m_plugin, m_window->get_widget(), get_button(), x, y);
+}
+
+//-----------------------------------------------------------------------------
+
 void Plugin::menu_hidden()
 {
 	// save();
@@ -185,6 +192,6 @@ void Plugin::update_size()
 
 //-----------------------------------------------------------------------------
 
-void Plugin::show_menu([[maybe_unused]] bool at_cursor)
+void Plugin::show_menu([[maybe_unused]] int position)
 {
 }

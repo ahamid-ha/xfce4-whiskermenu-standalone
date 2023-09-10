@@ -37,7 +37,6 @@ add_executable(whiskermenu_standalone
 	${WHISKERMENU_PLUGIN_PATH}/panel-plugin/profile.cpp
 	${WHISKERMENU_PLUGIN_PATH}/panel-plugin/query.cpp
 	${WHISKERMENU_PLUGIN_PATH}/panel-plugin/recent-page.cpp
-	${WHISKERMENU_PLUGIN_PATH}/panel-plugin/resizer.cpp
 	${WHISKERMENU_PLUGIN_PATH}/panel-plugin/run-action.cpp
 	${WHISKERMENU_PLUGIN_PATH}/panel-plugin/search-action.cpp
 	${WHISKERMENU_PLUGIN_PATH}/panel-plugin/search-page.cpp
